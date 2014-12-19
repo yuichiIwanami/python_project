@@ -7,31 +7,35 @@ import math
 # ソートするリストの要素数
 NUM = 10
 
-
-def merge_sort(n, given_list):
+# ソート関数
+def merge_sort(given_list):
   """
 
   :rtype : list
   """
-  if n <= 1:
+  given_length = len(given_list)
+  if given_length <= 1:
     return given_list
 
-  m = int(math.ceil(n / 2))
-  first_list = merge_sort(m, given_list[:m])
-  last_list = merge_sort(n - m, given_list[m:n])
+  half_length = int(math.ceil(given_length / 2))
+  first_list = merge_sort(given_list[:half_length])
+  last_list = merge_sort(given_list[half_length:given_length])
 
-  return_list = []
+  result_list = []
   while len(first_list) * len(last_list):
     if first_list[0] <= last_list[0]:
-      return_list.append(first_list[0])
+      result_list.append(first_list[0])
       first_list.pop(0)
     else:
-      return_list.append(last_list[0j])
+      result_list.append(last_list[0])
+      last_list.pop(0)
 
-  if m < n:
-    return_list.append(last_list[-1])
+  if len(first_list):
+    result_list.extend(first_list)
+  if len(last_list):
+    result_list.extend(last_list)
 
-  return return_list
+  return result_list
 
 
 # def test(list):
@@ -39,18 +43,13 @@ def merge_sort(n, given_list):
 # ソートするリスト
 sort = []
 
+# ソートするリストの作成
 for i in range(0, NUM):
-  sort.append(random.randint(0, 100))
+  sort.append(random.randint(0, NUM * 10))
 
 print(sort)
-sort = merge_sort(NUM, sort)
+sort = merge_sort(sort)
 # test(sort)
 print(sort)
-
-
-
-
-
-
 
 
